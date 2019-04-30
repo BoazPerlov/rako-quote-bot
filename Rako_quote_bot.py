@@ -3,16 +3,16 @@
 #The app takes a predefined excel file with a blank quote page and manipulates it based on the parameters selected.
 #It then saves the quote in a new excel file, named based on user input
 #I'm a complete novice, so please excuse any newbie mistakes you may (and probably will) find in this code
-#Adding a comment for git test
 
 
 import sys
 import math
 import openpyxl
-from PyQt5 import QtGui
-from PyQt5.QtWidgets import (QApplication, QGridLayout, QGroupBox, QPushButton, QRadioButton, QVBoxLayout, QWidget, QLabel, QLineEdit, QComboBox, QHBoxLayout, QInputDialog)
+from PyQt5 import QtWidgets, uic, QtGui
+from PyQt5.QtWidgets import (QApplication, QWizard, QGridLayout, QGroupBox, QPushButton, QRadioButton, QVBoxLayout, QWidget, QLabel, QLineEdit, QComboBox, QHBoxLayout, QInputDialog)
 
-class Window(QWidget):
+
+'''class Window(QWidget):
     #this function initializes the window app and sets the layout for the GUI in a grid layout
     def __init__(self, parent=None):
         super(Window, self).__init__(parent)
@@ -270,358 +270,367 @@ class Window(QWidget):
         subgrid.addWidget(self.TCM_qty, 3,2)
         groupMisc.setLayout(subgrid)
         return groupMisc
+'''
 
-    #This function manipulates the excel sheet based on user input of wireless circuits
-    def wireless_modules(self, sheet):
-        for i, row in enumerate(sheet.rows, start=1):
-            if sheet.cell(row=i, column=1).value == 'RAK-RMT-500':
-                sheet.cell(row=i, column=3).value = int(self.dim_wl_edit.text())
-            if sheet.cell(row=i, column=1).value == 'RAK-RMS-800':
-                sheet.cell(row=i, column=3).value = int(self.sw_wl_edit.text())
-            if sheet.cell(row=i, column=1).value == 'RAK-RACUB':
-                sheet.cell(row=i, column=3).value = int(self.cub_wl_edit.text())
-        x = int(self.dim_wl_edit.text())+int(self.sw_wl_edit.text())+int(self.cub_wl_edit.text())
-        rx_link = math.ceil(x / 16)
-        for i, row in enumerate(sheet.rows, start=1):
-            if sheet.cell(row=i, column=1).value == 'RAK-RX-LINK':
-                sheet.cell(row=i, column=3).value = rx_link
 
-    '''Defunct functions, please ignore!
-    def price_check(self):
-        rak4t = math.ceil(int(self.dim_w_edit.text()) / 4)
-        rak4f = math.ceil(int(self.sw_w_edit.text()) / 4)
-        rak4r = math.ceil(int(self.cub_w_edit.text()) / 4)
-        rak8 = math.ceil((int(self.dim_w_edit.text()) + int(self.sw_w_edit.text()) + int(self.cub_w_edit.text())) / 8)
-        self.t_price = rak4t * 354.2
-        self.f_price = rak4f * 339.5
-        self.r_price = rak4r * 373.1
-        self.rak8_price = rak8 * 249.9
-        self.wms_price = int(self.dim_w_edit.text()) * 53.9
-        self.wmt_price = int(self.sw_w_edit.text()) * 63.7
-        self.wmcub_price = int(self.cub_w_edit.text()) * 63.7
-        if (self.t_price+self.f_price+self.r_price) > (self.rak8_price+self.wmcub_price+self.wms_price+self.wmt_price):
-            return True
-        else:
-            return False
+#This function manipulates the excel sheet based on user input of wireless circuits
+def wireless_modules(self, sheet):
+    for i, row in enumerate(sheet.rows, start=1):
+        if sheet.cell(row=i, column=1).value == 'RAK-RMT-500':
+            sheet.cell(row=i, column=3).value = int(self.dim_wl_edit.text())
+        if sheet.cell(row=i, column=1).value == 'RAK-RMS-800':
+            sheet.cell(row=i, column=3).value = int(self.sw_wl_edit.text())
+        if sheet.cell(row=i, column=1).value == 'RAK-RACUB':
+            sheet.cell(row=i, column=3).value = int(self.cub_wl_edit.text())
+    x = int(self.dim_wl_edit.text())+int(self.sw_wl_edit.text())+int(self.cub_wl_edit.text())
+    rx_link = math.ceil(x / 16)
+    for i, row in enumerate(sheet.rows, start=1):
+        if sheet.cell(row=i, column=1).value == 'RAK-RX-LINK':
+            sheet.cell(row=i, column=3).value = rx_link
 
-    def rak4_modules(self, sheet):
-        rak4t = math.ceil(int(self.dim_w_edit.text()) / 4)
-        rak4f = math.ceil(int(self.sw_w_edit.text()) / 4)
-        rak4r = math.ceil(int(self.cub_w_edit.text()) / 4)
-        for i, row in enumerate(sheet.rows, start=1):
-            if sheet.cell(row=i, column=1).value == 'RAK-RAK4-T':
-                sheet.cell(row=i, column=3).value = rak4t
-            elif sheet.cell(row=i, column=1).value == 'RAK-RAK4-F':
-                sheet.cell(row=i, column=3).value = rak4f
-            elif sheet.cell(row=i, column=1).value == 'RAK-RAK4-R':
-                sheet.cell(row=i, column=3).value = rak4r
-        y = rak4f+rak4t+rak4r
-        rak4_link = math.ceil(y / 32)
-        for i, row in enumerate(sheet.rows, start=1):
-            if sheet.cell(row=i, column=1).value == 'RAK-RAK-LINK':
-                sheet.cell(row=i, column=3).value = rak4_link'''
+'''Defunct functions, please ignore!
+def price_check(self):
+    rak4t = math.ceil(int(self.dim_w_edit.text()) / 4)
+    rak4f = math.ceil(int(self.sw_w_edit.text()) / 4)
+    rak4r = math.ceil(int(self.cub_w_edit.text()) / 4)
+    rak8 = math.ceil((int(self.dim_w_edit.text()) + int(self.sw_w_edit.text()) + int(self.cub_w_edit.text())) / 8)
+    self.t_price = rak4t * 354.2
+    self.f_price = rak4f * 339.5
+    self.r_price = rak4r * 373.1
+    self.rak8_price = rak8 * 249.9
+    self.wms_price = int(self.dim_w_edit.text()) * 53.9
+    self.wmt_price = int(self.sw_w_edit.text()) * 63.7
+    self.wmcub_price = int(self.cub_w_edit.text()) * 63.7
+    if (self.t_price+self.f_price+self.r_price) > (self.rak8_price+self.wmcub_price+self.wms_price+self.wmt_price):
+        return True
+    else:
+        return False
 
-    # This function manipulates the excel sheet based on user input of wired circuits
-    def rak8_modules(self, sheet):
-        rak8 = math.ceil((int(self.dim_w_edit.text()) + int(self.sw_w_edit.text()) + int(self.cub_w_edit.text())) / 8)
-        for i, row in enumerate(sheet.rows, start=1):
-            if sheet.cell(row=i, column=1).value == 'RAK-WMS-600':
-                sheet.cell(row=i, column=3).value = int(self.sw_w_edit.text())
-            elif sheet.cell(row=i, column=1).value == 'RAK-WMT-400':
-                sheet.cell(row=i, column=3).value = int(self.dim_w_edit.text())
-            elif sheet.cell(row=i, column=1).value == 'RAK-WM-CUB':
-                sheet.cell(row=i, column=3).value = int(self.cub_w_edit.text())
-            elif sheet.cell(row=i, column=1).value == 'RAK-RAK8-MB':
-                sheet.cell(row=i, column=3).value = rak8
-        rak8_link = math.ceil(rak8 / 32)
-        for i, row in enumerate(sheet.rows, start=1):
-            if sheet.cell(row=i, column=1).value == 'RAK-RAK-LINK':
-                sheet.cell(row=i, column=3).value = rak8_link
+def rak4_modules(self, sheet):
+    rak4t = math.ceil(int(self.dim_w_edit.text()) / 4)
+    rak4f = math.ceil(int(self.sw_w_edit.text()) / 4)
+    rak4r = math.ceil(int(self.cub_w_edit.text()) / 4)
+    for i, row in enumerate(sheet.rows, start=1):
+        if sheet.cell(row=i, column=1).value == 'RAK-RAK4-T':
+            sheet.cell(row=i, column=3).value = rak4t
+        elif sheet.cell(row=i, column=1).value == 'RAK-RAK4-F':
+            sheet.cell(row=i, column=3).value = rak4f
+        elif sheet.cell(row=i, column=1).value == 'RAK-RAK4-R':
+            sheet.cell(row=i, column=3).value = rak4r
+    y = rak4f+rak4t+rak4r
+    rak4_link = math.ceil(y / 32)
+    for i, row in enumerate(sheet.rows, start=1):
+        if sheet.cell(row=i, column=1).value == 'RAK-RAK-LINK':
+            sheet.cell(row=i, column=3).value = rak4_link'''
 
-    # This function manipulates the excel sheet based on user input of the radio button options
-    def wired_bridges(self, sheet):
-            if self.tc_state == 'Yes':
-                for i, row in enumerate(sheet.rows, start=1):
-                    if sheet.cell(row=i, column=1).value == 'RAK-WTC-BRIDGE':
-                        sheet.cell(row=i, column=3).value = 1
-            elif self.tc_state == 'No':
-                for i, row in enumerate(sheet.rows, start=1):
-                    if sheet.cell(row=i, column=1).value == 'RAK-WA-BRIDGE':
-                        sheet.cell(row=i, column=3).value = 1
+# This function manipulates the excel sheet based on user input of wired circuits
+def rak8_modules(self, sheet):
+    rak8 = math.ceil((int(self.dim_w_edit.text()) + int(self.sw_w_edit.text()) + int(self.cub_w_edit.text())) / 8)
+    for i, row in enumerate(sheet.rows, start=1):
+        if sheet.cell(row=i, column=1).value == 'RAK-WMS-600':
+            sheet.cell(row=i, column=3).value = int(self.sw_w_edit.text())
+        elif sheet.cell(row=i, column=1).value == 'RAK-WMT-400':
+            sheet.cell(row=i, column=3).value = int(self.dim_w_edit.text())
+        elif sheet.cell(row=i, column=1).value == 'RAK-WM-CUB':
+            sheet.cell(row=i, column=3).value = int(self.cub_w_edit.text())
+        elif sheet.cell(row=i, column=1).value == 'RAK-RAK8-MB':
+            sheet.cell(row=i, column=3).value = rak8
+    rak8_link = math.ceil(rak8 / 32)
+    for i, row in enumerate(sheet.rows, start=1):
+        if sheet.cell(row=i, column=1).value == 'RAK-RAK-LINK':
+            sheet.cell(row=i, column=3).value = rak8_link
 
-    # This function manipulates the excel sheet based on user input of the radio button options
-    def wireless_bridges(self, sheet):
-            if self.tc_state == 'Yes':
-                for i, row in enumerate(sheet.rows, start=1):
-                    if sheet.cell(row=i, column=1).value == 'RAK-RTC-BRIDGE':
-                        sheet.cell(row=i, column=3).value = 1
-            elif self.tc_state == 'No':
-                for i, row in enumerate(sheet.rows, start=1):
-                    if sheet.cell(row=i, column=1).value == 'RAK-RA-BRIDGE':
-                        sheet.cell(row=i, column=3).value = 1
+# This function manipulates the excel sheet based on user input of the radio button options
+def wired_bridges(self, sheet):
+        if self.tc_state == 'Yes':
+            for i, row in enumerate(sheet.rows, start=1):
+                if sheet.cell(row=i, column=1).value == 'RAK-WTC-BRIDGE':
+                    sheet.cell(row=i, column=3).value = 1
+        elif self.tc_state == 'No':
+            for i, row in enumerate(sheet.rows, start=1):
+                if sheet.cell(row=i, column=1).value == 'RAK-WA-BRIDGE':
+                    sheet.cell(row=i, column=3).value = 1
 
-    # This function manipulates the excel sheet based on user input of wired keypads
-    def wired_keypds(self, sheet):
-        for i, row in enumerate(sheet.rows, start=1):
-            if sheet.cell(row=i, column=1).value == 'RAK-WCM-030':
-                sheet.cell(row=i, column=3).value = self.w3_qty.text()
-        for i, row in enumerate(sheet.rows, start=1):
-            if sheet.cell(row=i, column=1).value == 'RAK-WCM-070':
-                sheet.cell(row=i, column=3).value = self.w7_qty.text()
-        for i, row in enumerate(sheet.rows, start=1):
-            if sheet.cell(row=i, column=1).value == 'RAK-WCM-100':
-                sheet.cell(row=i, column=3).value = self.w10_qty.text()
+# This function manipulates the excel sheet based on user input of the radio button options
+def wireless_bridges(self, sheet):
+        if self.tc_state == 'Yes':
+            for i, row in enumerate(sheet.rows, start=1):
+                if sheet.cell(row=i, column=1).value == 'RAK-RTC-BRIDGE':
+                    sheet.cell(row=i, column=3).value = 1
+        elif self.tc_state == 'No':
+            for i, row in enumerate(sheet.rows, start=1):
+                if sheet.cell(row=i, column=1).value == 'RAK-RA-BRIDGE':
+                    sheet.cell(row=i, column=3).value = 1
 
-    # This function manipulates the excel sheet based on user input of wireless keypads
-    def rf_keypads(self, sheet):
-        for i, row in enumerate(sheet.rows, start=1):
-            if sheet.cell(row=i, column=1).value == 'RAK-RCM-030':
-                sheet.cell(row=i, column=3).value = self.wl3_qty.text()
-        for i, row in enumerate(sheet.rows, start=1):
-            if sheet.cell(row=i, column=1).value == 'RAK-RCM-070':
-                sheet.cell(row=i, column=3).value = self.wl7_qty.text()
-        for i, row in enumerate(sheet.rows, start=1):
-            if sheet.cell(row=i, column=1).value == 'RAK-RCM-100':
-                sheet.cell(row=i, column=3).value = self.wl10_qty.text()
+# This function manipulates the excel sheet based on user input of wired keypads
+def wired_keypds(self, sheet):
+    for i, row in enumerate(sheet.rows, start=1):
+        if sheet.cell(row=i, column=1).value == 'RAK-WCM-030':
+            sheet.cell(row=i, column=3).value = self.w3_qty.text()
+    for i, row in enumerate(sheet.rows, start=1):
+        if sheet.cell(row=i, column=1).value == 'RAK-WCM-070':
+            sheet.cell(row=i, column=3).value = self.w7_qty.text()
+    for i, row in enumerate(sheet.rows, start=1):
+        if sheet.cell(row=i, column=1).value == 'RAK-WCM-100':
+            sheet.cell(row=i, column=3).value = self.w10_qty.text()
 
-    # This function manipulates the excel sheet based on user input of wireless keypads
-    def nfc_keypads(self, sheet):
-        for i, row in enumerate(sheet.rows, start=1):
-            if sheet.cell(row=i, column=1).value == 'RAK-RNC-030':
-                sheet.cell(row=i, column=3).value = int(self.wnf3_qty.text())
-        for i, row in enumerate(sheet.rows, start=1):
-            if sheet.cell(row=i, column=1).value == 'RAK-RNC-070':
-                sheet.cell(row=i, column=3).value = self.wnf7_qty.text()
-        for i, row in enumerate(sheet.rows, start=1):
-            if sheet.cell(row=i, column=1).value == 'RAK-RNC-100':
-                sheet.cell(row=i, column=3).value = self.wnf10_qty.text()
+# This function manipulates the excel sheet based on user input of wireless keypads
+def rf_keypads(self, sheet):
+    for i, row in enumerate(sheet.rows, start=1):
+        if sheet.cell(row=i, column=1).value == 'RAK-RCM-030':
+            sheet.cell(row=i, column=3).value = self.wl3_qty.text()
+    for i, row in enumerate(sheet.rows, start=1):
+        if sheet.cell(row=i, column=1).value == 'RAK-RCM-070':
+            sheet.cell(row=i, column=3).value = self.wl7_qty.text()
+    for i, row in enumerate(sheet.rows, start=1):
+        if sheet.cell(row=i, column=1).value == 'RAK-RCM-100':
+            sheet.cell(row=i, column=3).value = self.wl10_qty.text()
 
-    # This function manipulates the excel sheet based on user input of keypad plates
-    def wired_plates(self, sheet):
-        if self.w3_plate.currentText() == 'White':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-WLF-030-W':
-                    sheet.cell(row=i, column=3).value = int(self.w3_qty.text())
-        elif self.w3_plate.currentText() == 'Black Nickel':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-WLF-030-BN':
-                    sheet.cell(row=i, column=3).value = int(self.w3_qty.text())
-        elif self.w3_plate.currentText() == 'Polished Brass':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-WLF-030-PB':
-                    sheet.cell(row=i, column=3).value = int(self.w3_qty.text())
-        elif self.w3_plate.currentText() == 'Mirrored Stainless Steel':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-WLF-030-MSS':
-                    sheet.cell(row=i, column=3).value = int(self.w3_qty.text())
-        elif self.w3_plate.currentText() == 'Brushed Stainless Steel':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-WLF-030-SS':
-                    sheet.cell(row=i, column=3).value = int(self.w3_qty.text())
-        if self.w7_plate.currentText() == 'White':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-WLF-070-W':
-                    sheet.cell(row=i, column=3).value = int(self.w7_qty.text())
-        elif self.w7_plate.currentText() == 'Black Nickel':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-WLF-070-BN':
-                    sheet.cell(row=i, column=3).value = int(self.w7_qty.text())
-        elif self.w7_plate.currentText() == 'Polished Brass':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-WLF-070-PB':
-                    sheet.cell(row=i, column=3).value = int(self.w7_qty.text())
-        elif self.w7_plate.currentText() == 'Mirrored Stainless Steel':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-WLF-070-MSS':
-                    sheet.cell(row=i, column=3).value = int(self.w7_qty.text())
-        elif self.w7_plate.currentText() == 'Brushed Stainless Steel':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-WLF-070-SS':
-                    sheet.cell(row=i, column=3).value = int(self.w7_qty.text())
-        if self.w10_plate.currentText() == 'White':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-WLF-100-W':
-                    sheet.cell(row=i, column=3).value = int(self.w10_qty.text())
-        elif self.w10_plate.currentText() == 'Black Nickel':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-WLF-100-BN':
-                    sheet.cell(row=i, column=3).value = int(self.w10_qty.text())
-        elif self.w10_plate.currentText() == 'Polished Brass':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-WLF-100-PB':
-                    sheet.cell(row=i, column=3).value = int(self.w10_qty.text())
-        elif self.w10_plate.currentText() == 'Mirrored Stainless Steel':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-WLF-100-MSS':
-                    sheet.cell(row=i, column=3).value = int(self.w10_qty.text())
-        elif self.w10_plate.currentText() == 'Brushed Stainless Steel':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-WLF-100-SS':
-                    sheet.cell(row=i, column=3).value = int(self.w10_qty.text())
+# This function manipulates the excel sheet based on user input of wireless keypads
+def nfc_keypads(self, sheet):
+    for i, row in enumerate(sheet.rows, start=1):
+        if sheet.cell(row=i, column=1).value == 'RAK-RNC-030':
+            sheet.cell(row=i, column=3).value = int(self.wnf3_qty.text())
+    for i, row in enumerate(sheet.rows, start=1):
+        if sheet.cell(row=i, column=1).value == 'RAK-RNC-070':
+            sheet.cell(row=i, column=3).value = self.wnf7_qty.text()
+    for i, row in enumerate(sheet.rows, start=1):
+        if sheet.cell(row=i, column=1).value == 'RAK-RNC-100':
+            sheet.cell(row=i, column=3).value = self.wnf10_qty.text()
 
-    # This function manipulates the excel sheet based on user input of keypad plates
-    def wireless_plates(self, sheet):
-        self.wl_7 = int(self.wl7_qty.text())
-        self.wnf_7 = int(self.wnf7_qty.text())
-        self.wl_10 = int(self.wl10_qty.text())
-        self.wnf_10 = int(self.wnf10_qty.text())
-        if self.wl3_plate.currentText() == 'White':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-RLF-030-W':
-                    sheet.cell(row=i, column=3).value = int(self.wl3_qty.text())
-        elif self.wl3_plate.currentText() == 'Black Nickel':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-RLF-030-BN':
-                    sheet.cell(row=i, column=3).value = int(self.wl3_qty.text())
-        elif self.wl3_plate.currentText() == 'Polished Brass':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-RLF-030-PB':
-                    sheet.cell(row=i, column=3).value = int(self.wl3_qty.text())
-        elif self.wl3_plate.currentText() == 'Mirrored Stainless Steel':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-RLF-030-MSS':
-                    sheet.cell(row=i, column=3).value = int(self.wl3_qty.text())
-        elif self.wl3_plate.currentText() == 'Brushed Stainless Steel':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-RLF-030-SS':
-                    sheet.cell(row=i, column=3).value = int(self.wl3_qty.text())
-        if self.wl7_plate.currentText() == 'White':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-RLF-070-W':
-                    sheet.cell(row=i, column=3).value = (self.wl_7+self.wnf_7)
-        elif self.wl7_plate.currentText() == 'Black Nickel':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-RLF-070-BN':
-                    sheet.cell(row=i, column=3).value = (self.wl_7+self.wnf_7)
-        elif self.wl7_plate.currentText() == 'Polished Brass':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-RLF-070-PB':
-                    sheet.cell(row=i, column=3).value = (self.wl_7+self.wnf_7)
-        elif self.wl7_plate.currentText() == 'Mirrored Stainless Steel':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-RLF-070-MSS':
-                    sheet.cell(row=i, column=3).value = (self.wl_7+self.wnf_7)
-        elif self.wl7_plate.currentText() == 'Brushed Stainless Steel':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-RLF-070-SS':
-                    sheet.cell(row=i, column=3).value = (self.wl_7+self.wnf_7)
-        if self.wl10_plate.currentText() == 'White':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-RLF-100-W':
-                    sheet.cell(row=i, column=3).value = (self.wl_10+self.wnf_10)
-        elif self.wl10_plate.currentText() == 'Black Nickel':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-RLF-100-BN':
-                    sheet.cell(row=i, column=3).value = (self.wl_10+self.wnf_10)
-        elif self.wl10_plate.currentText() == 'Polished Brass':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-RLF-100-PB':
-                    sheet.cell(row=i, column=3).value = (self.wl_10+self.wnf_10)
-        elif self.wl10_plate.currentText() == 'Mirrored Stainless Steel':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-RLF-100-MSS':
-                    sheet.cell(row=i, column=3).value = (self.wl_10+self.wnf_10)
-        elif self.wl10_plate.currentText() == 'Brushed Stainless Steel':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-RLF-100-SS':
-                    sheet.cell(row=i, column=3).value = (self.wl_10+self.wnf_10)
-
-    # This function manipulates the excel sheet based on user input of keypad plates
-    def nfc_plates(self, sheet):
-        if self.wnf7_plate.currentText() == 'White':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-RLF-070-W':
-                    sheet.cell(row=i, column=3).value = (self.wl_7+self.wnf_7)
-        elif self.wnf7_plate.currentText() == 'Black Nickel':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-RLF-070-BN':
-                    sheet.cell(row=i, column=3).value = (self.wl_7+self.wnf_7)
-        elif self.wnf7_plate.currentText() == 'Polished Brass':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-RLF-070-PB':
-                    sheet.cell(row=i, column=3).value = (self.wl_7+self.wnf_7)
-        elif self.wnf7_plate.currentText() == 'Mirrored Stainless Steel':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-RLF-070-MSS':
-                    sheet.cell(row=i, column=3).value = (self.wl_7+self.wnf_7)
-        elif self.wnf7_plate.currentText() == 'Brushed Stainless Steel':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-RLF-070-SS':
-                    sheet.cell(row=i, column=3).value = (self.wl_7+self.wnf_7)
-        if self.wnf10_plate.currentText() == 'White':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-RLF-100-W':
-                    sheet.cell(row=i, column=3).value = (self.wl_10+self.wnf_10)
-        elif self.wnf10_plate.currentText() == 'Black Nickel':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-RLF-100-BN':
-                    sheet.cell(row=i, column=3).value = (self.wl_10+self.wnf_10)
-        elif self.wnf10_plate.currentText() == 'Polished Brass':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-RLF-100-PB':
-                    sheet.cell(row=i, column=3).value = (self.wl_10+self.wnf_10)
-        elif self.wnf10_plate.currentText() == 'Mirrored Stainless Steel':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-RLF-100-MSS':
-                    sheet.cell(row=i, column=3).value = (self.wl_10+self.wnf_10)
-        elif self.wnf10_plate.currentText() == 'Brushed Stainless Steel':
-            for i, row in enumerate(sheet.rows, start=1):
-                if sheet.cell(row=i, column=1).value == 'RAK-RLF-100-SS':
-                    sheet.cell(row=i, column=3).value = (self.wl_10+self.wnf_10)
-
-    # This function manipulates the excel sheet based on user input of misc. devices
-    def misc_items(self, sheet):
+# This function manipulates the excel sheet based on user input of keypad plates
+def wired_plates(self, sheet):
+    if self.w3_plate.currentText() == 'White':
         for i, row in enumerate(sheet.rows, start=1):
-            if sheet.cell(row=i, column=1).value == 'RAK-RAK-STAR':
-                sheet.cell(row=i, column=3).value = self.Star_qty.text()
+            if sheet.cell(row=i, column=1).value == 'RAK-WLF-030-W':
+                sheet.cell(row=i, column=3).value = int(self.w3_qty.text())
+    elif self.w3_plate.currentText() == 'Black Nickel':
         for i, row in enumerate(sheet.rows, start=1):
-            if sheet.cell(row=i, column=1).value == 'RAK-RAMPI':
-                sheet.cell(row=i, column=3).value = self.RAMPI_qty.text()
+            if sheet.cell(row=i, column=1).value == 'RAK-WLF-030-BN':
+                sheet.cell(row=i, column=3).value = int(self.w3_qty.text())
+    elif self.w3_plate.currentText() == 'Polished Brass':
         for i, row in enumerate(sheet.rows, start=1):
-            if sheet.cell(row=i, column=1).value == 'RAK-TCM':
-                sheet.cell(row=i, column=3).value = self.TCM_qty.text()
+            if sheet.cell(row=i, column=1).value == 'RAK-WLF-030-PB':
+                sheet.cell(row=i, column=3).value = int(self.w3_qty.text())
+    elif self.w3_plate.currentText() == 'Mirrored Stainless Steel':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-WLF-030-MSS':
+                sheet.cell(row=i, column=3).value = int(self.w3_qty.text())
+    elif self.w3_plate.currentText() == 'Brushed Stainless Steel':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-WLF-030-SS':
+                sheet.cell(row=i, column=3).value = int(self.w3_qty.text())
+    if self.w7_plate.currentText() == 'White':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-WLF-070-W':
+                sheet.cell(row=i, column=3).value = int(self.w7_qty.text())
+    elif self.w7_plate.currentText() == 'Black Nickel':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-WLF-070-BN':
+                sheet.cell(row=i, column=3).value = int(self.w7_qty.text())
+    elif self.w7_plate.currentText() == 'Polished Brass':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-WLF-070-PB':
+                sheet.cell(row=i, column=3).value = int(self.w7_qty.text())
+    elif self.w7_plate.currentText() == 'Mirrored Stainless Steel':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-WLF-070-MSS':
+                sheet.cell(row=i, column=3).value = int(self.w7_qty.text())
+    elif self.w7_plate.currentText() == 'Brushed Stainless Steel':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-WLF-070-SS':
+                sheet.cell(row=i, column=3).value = int(self.w7_qty.text())
+    if self.w10_plate.currentText() == 'White':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-WLF-100-W':
+                sheet.cell(row=i, column=3).value = int(self.w10_qty.text())
+    elif self.w10_plate.currentText() == 'Black Nickel':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-WLF-100-BN':
+                sheet.cell(row=i, column=3).value = int(self.w10_qty.text())
+    elif self.w10_plate.currentText() == 'Polished Brass':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-WLF-100-PB':
+                sheet.cell(row=i, column=3).value = int(self.w10_qty.text())
+    elif self.w10_plate.currentText() == 'Mirrored Stainless Steel':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-WLF-100-MSS':
+                sheet.cell(row=i, column=3).value = int(self.w10_qty.text())
+    elif self.w10_plate.currentText() == 'Brushed Stainless Steel':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-WLF-100-SS':
+                sheet.cell(row=i, column=3).value = int(self.w10_qty.text())
 
-    #This function opens up pop-up message when pressing the "Generate Quote" icon, and operates the "gen_quote" function when OK is pressed
-    def showDialog(self):
-        self.book = openpyxl.load_workbook('Rak_Prices.xlsx')
-        self.sheet = self.book.active
-        self.text, ok = QInputDialog.getText(self, 'Rako Quote Bot','Which company are you quoting for?')
-        if ok:
-            self.gen_quote(self.text, self.sheet)
+# This function manipulates the excel sheet based on user input of keypad plates
+def wireless_plates(self, sheet):
+    self.wl_7 = int(self.wl7_qty.text())
+    self.wnf_7 = int(self.wnf7_qty.text())
+    self.wl_10 = int(self.wl10_qty.text())
+    self.wnf_10 = int(self.wnf10_qty.text())
+    if self.wl3_plate.currentText() == 'White':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-RLF-030-W':
+                sheet.cell(row=i, column=3).value = int(self.wl3_qty.text())
+    elif self.wl3_plate.currentText() == 'Black Nickel':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-RLF-030-BN':
+                sheet.cell(row=i, column=3).value = int(self.wl3_qty.text())
+    elif self.wl3_plate.currentText() == 'Polished Brass':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-RLF-030-PB':
+                sheet.cell(row=i, column=3).value = int(self.wl3_qty.text())
+    elif self.wl3_plate.currentText() == 'Mirrored Stainless Steel':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-RLF-030-MSS':
+                sheet.cell(row=i, column=3).value = int(self.wl3_qty.text())
+    elif self.wl3_plate.currentText() == 'Brushed Stainless Steel':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-RLF-030-SS':
+                sheet.cell(row=i, column=3).value = int(self.wl3_qty.text())
+    if self.wl7_plate.currentText() == 'White':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-RLF-070-W':
+                sheet.cell(row=i, column=3).value = (self.wl_7+self.wnf_7)
+    elif self.wl7_plate.currentText() == 'Black Nickel':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-RLF-070-BN':
+                sheet.cell(row=i, column=3).value = (self.wl_7+self.wnf_7)
+    elif self.wl7_plate.currentText() == 'Polished Brass':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-RLF-070-PB':
+                sheet.cell(row=i, column=3).value = (self.wl_7+self.wnf_7)
+    elif self.wl7_plate.currentText() == 'Mirrored Stainless Steel':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-RLF-070-MSS':
+                sheet.cell(row=i, column=3).value = (self.wl_7+self.wnf_7)
+    elif self.wl7_plate.currentText() == 'Brushed Stainless Steel':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-RLF-070-SS':
+                sheet.cell(row=i, column=3).value = (self.wl_7+self.wnf_7)
+    if self.wl10_plate.currentText() == 'White':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-RLF-100-W':
+                sheet.cell(row=i, column=3).value = (self.wl_10+self.wnf_10)
+    elif self.wl10_plate.currentText() == 'Black Nickel':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-RLF-100-BN':
+                sheet.cell(row=i, column=3).value = (self.wl_10+self.wnf_10)
+    elif self.wl10_plate.currentText() == 'Polished Brass':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-RLF-100-PB':
+                sheet.cell(row=i, column=3).value = (self.wl_10+self.wnf_10)
+    elif self.wl10_plate.currentText() == 'Mirrored Stainless Steel':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-RLF-100-MSS':
+                sheet.cell(row=i, column=3).value = (self.wl_10+self.wnf_10)
+    elif self.wl10_plate.currentText() == 'Brushed Stainless Steel':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-RLF-100-SS':
+                sheet.cell(row=i, column=3).value = (self.wl_10+self.wnf_10)
 
-    #This function puts all the other excel manipulation functions together in basic if/elif logic and user input.
-    #The function then saves the manipulated excel sheet based on user input name
-    def gen_quote(self, text, quote_sheet):
-        if self.state_system == 'Wired':
-            self.wired_bridges(quote_sheet)
-            self.rak8_modules(quote_sheet)
-            self.wired_keypds(quote_sheet)
-            self.wired_plates(quote_sheet)
-            self.misc_items(quote_sheet)
-        elif self.state_system == 'Both':
-            self.rak8_modules(quote_sheet)
-            self.wireless_modules(quote_sheet)
-            self.wired_keypds(quote_sheet)
-            self.rf_keypads(quote_sheet)
-            self.nfc_keypads(quote_sheet)
-            self.wired_plates(quote_sheet)
-            self.wireless_plates(quote_sheet)
-            self.nfc_plates(quote_sheet)
-            self.misc_items(quote_sheet)
-        elif self.state_system == 'Wireless':
-            self.wireless_bridges(quote_sheet)
-            self.wireless_modules(quote_sheet)
-            self.rf_keypads(quote_sheet)
-            self.nfc_keypads(quote_sheet)
-            self.wireless_plates(quote_sheet)
-            self.nfc_plates(quote_sheet)
-            self.misc_items(quote_sheet)
-        name = str(self.text)
-        name = name + ' Rako Quote.xlsx'
-        self.book.save(name)
+# This function manipulates the excel sheet based on user input of keypad plates
+def nfc_plates(self, sheet):
+    if self.wnf7_plate.currentText() == 'White':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-RLF-070-W':
+                sheet.cell(row=i, column=3).value = (self.wl_7+self.wnf_7)
+    elif self.wnf7_plate.currentText() == 'Black Nickel':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-RLF-070-BN':
+                sheet.cell(row=i, column=3).value = (self.wl_7+self.wnf_7)
+    elif self.wnf7_plate.currentText() == 'Polished Brass':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-RLF-070-PB':
+                sheet.cell(row=i, column=3).value = (self.wl_7+self.wnf_7)
+    elif self.wnf7_plate.currentText() == 'Mirrored Stainless Steel':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-RLF-070-MSS':
+                sheet.cell(row=i, column=3).value = (self.wl_7+self.wnf_7)
+    elif self.wnf7_plate.currentText() == 'Brushed Stainless Steel':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-RLF-070-SS':
+                sheet.cell(row=i, column=3).value = (self.wl_7+self.wnf_7)
+    if self.wnf10_plate.currentText() == 'White':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-RLF-100-W':
+                sheet.cell(row=i, column=3).value = (self.wl_10+self.wnf_10)
+    elif self.wnf10_plate.currentText() == 'Black Nickel':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-RLF-100-BN':
+                sheet.cell(row=i, column=3).value = (self.wl_10+self.wnf_10)
+    elif self.wnf10_plate.currentText() == 'Polished Brass':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-RLF-100-PB':
+                sheet.cell(row=i, column=3).value = (self.wl_10+self.wnf_10)
+    elif self.wnf10_plate.currentText() == 'Mirrored Stainless Steel':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-RLF-100-MSS':
+                sheet.cell(row=i, column=3).value = (self.wl_10+self.wnf_10)
+    elif self.wnf10_plate.currentText() == 'Brushed Stainless Steel':
+        for i, row in enumerate(sheet.rows, start=1):
+            if sheet.cell(row=i, column=1).value == 'RAK-RLF-100-SS':
+                sheet.cell(row=i, column=3).value = (self.wl_10+self.wnf_10)
+
+# This function manipulates the excel sheet based on user input of misc. devices
+def misc_items(self, sheet):
+    for i, row in enumerate(sheet.rows, start=1):
+        if sheet.cell(row=i, column=1).value == 'RAK-RAK-STAR':
+            sheet.cell(row=i, column=3).value = self.Star_qty.text()
+    for i, row in enumerate(sheet.rows, start=1):
+        if sheet.cell(row=i, column=1).value == 'RAK-RAMPI':
+            sheet.cell(row=i, column=3).value = self.RAMPI_qty.text()
+    for i, row in enumerate(sheet.rows, start=1):
+        if sheet.cell(row=i, column=1).value == 'RAK-TCM':
+            sheet.cell(row=i, column=3).value = self.TCM_qty.text()
+
+
+#This function opens up pop-up message when pressing the "Generate Quote" icon, and operates the "gen_quote" function when OK is pressed
+def showDialog(self):
+    self.book = openpyxl.load_workbook('Rak_Prices.xlsx')
+    self.sheet = self.book.active
+    self.text, ok = QInputDialog.getText(self, 'Rako Quote Bot','Which company are you quoting for?')
+    if ok:
+        self.gen_quote(self.text, self.sheet)
+
+#This function puts all the other excel manipulation functions together in basic if/elif logic and user input.
+#The function then saves the manipulated excel sheet based on user input name
+def gen_quote(self, text, quote_sheet):
+    if self.state_system == 'Wired':
+        self.wired_bridges(quote_sheet)
+        self.rak8_modules(quote_sheet)
+        self.wired_keypds(quote_sheet)
+        self.wired_plates(quote_sheet)
+        self.misc_items(quote_sheet)
+    elif self.state_system == 'Both':
+        self.rak8_modules(quote_sheet)
+        self.wireless_modules(quote_sheet)
+        self.wired_keypds(quote_sheet)
+        self.rf_keypads(quote_sheet)
+        self.nfc_keypads(quote_sheet)
+        self.wired_plates(quote_sheet)
+        self.wireless_plates(quote_sheet)
+        self.nfc_plates(quote_sheet)
+        self.misc_items(quote_sheet)
+    elif self.state_system == 'Wireless':
+        self.wireless_bridges(quote_sheet)
+        self.wireless_modules(quote_sheet)
+        self.rf_keypads(quote_sheet)
+        self.nfc_keypads(quote_sheet)
+        self.wireless_plates(quote_sheet)
+        self.nfc_plates(quote_sheet)
+        self.misc_items(quote_sheet)
+    name = str(self.text)
+    name = name + ' Rako Quote.xlsx'
+    self.book.save(name)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    clock = Window()
-    clock.show()
+    dlg = uic.loadUi("Rako_quote_UI-v2.ui")
+    dlg.show()
+    btn = dlg.FinishButton
+    btn.clicked.connect(lambda: self.showDialog())
+    app.exec()
     sys.exit(app.exec_())
+
+
+

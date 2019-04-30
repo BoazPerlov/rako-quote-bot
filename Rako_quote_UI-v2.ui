@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Wizard</class>
- <widget class="QWizard" name="Wizard">
+ <class>rakowiz</class>
+ <widget class="QWizard" name="rakowiz">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>602</width>
-    <height>509</height>
+    <width>560</width>
+    <height>478</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,7 +38,7 @@
     </property>
     <property name="font">
      <font>
-      <pointsize>12</pointsize>
+      <pointsize>11</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
@@ -58,7 +58,7 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QRadioButton" name="radioButton">
+      <widget class="QRadioButton" name="wired_sys">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
@@ -70,7 +70,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QRadioButton" name="radioButton_2">
+      <widget class="QRadioButton" name="wireless_sys">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
@@ -82,7 +82,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QRadioButton" name="radioButton_3">
+      <widget class="QRadioButton" name="both_sys">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
@@ -106,7 +106,7 @@
     </property>
     <property name="font">
      <font>
-      <pointsize>12</pointsize>
+      <pointsize>11</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
@@ -121,12 +121,12 @@
       <x>10</x>
       <y>170</y>
       <width>160</width>
-      <height>51</height>
+      <height>54</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <widget class="QRadioButton" name="radioButton_5">
+      <widget class="QRadioButton" name="tc_yes">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
@@ -138,7 +138,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QRadioButton" name="radioButton_6">
+      <widget class="QRadioButton" name="tc_no">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
@@ -162,14 +162,14 @@
     </property>
     <layout class="QGridLayout" name="gridLayout">
      <item row="2" column="1">
-      <widget class="QLineEdit" name="lineEdit">
+      <widget class="QLineEdit" name="dim_w_edit">
        <property name="placeholderText">
         <string>0</string>
        </property>
       </widget>
      </item>
      <item row="3" column="0">
-      <widget class="QLabel" name="label_5">
+      <widget class="QLabel" name="sw_lbl">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
@@ -181,7 +181,7 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QLabel" name="label_7">
+      <widget class="QLabel" name="wired_lbl">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
@@ -197,7 +197,7 @@
       </widget>
      </item>
      <item row="4" column="0">
-      <widget class="QLabel" name="label_6">
+      <widget class="QLabel" name="cub_lbl">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
@@ -209,21 +209,21 @@
       </widget>
      </item>
      <item row="3" column="1">
-      <widget class="QLineEdit" name="lineEdit_2">
+      <widget class="QLineEdit" name="sw_w_edit">
        <property name="placeholderText">
         <string>0</string>
        </property>
       </widget>
      </item>
      <item row="4" column="1">
-      <widget class="QLineEdit" name="lineEdit_3">
+      <widget class="QLineEdit" name="cub_w_edit">
        <property name="placeholderText">
         <string>0</string>
        </property>
       </widget>
      </item>
      <item row="2" column="0">
-      <widget class="QLabel" name="label_4">
+      <widget class="QLabel" name="dim_lbl">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
@@ -235,28 +235,28 @@
       </widget>
      </item>
      <item row="2" column="2">
-      <widget class="QLineEdit" name="lineEdit_4">
+      <widget class="QLineEdit" name="dim_wl_edit">
        <property name="placeholderText">
         <string>0</string>
        </property>
       </widget>
      </item>
      <item row="3" column="2">
-      <widget class="QLineEdit" name="lineEdit_5">
+      <widget class="QLineEdit" name="sw_wl_edit">
        <property name="placeholderText">
         <string>0</string>
        </property>
       </widget>
      </item>
      <item row="4" column="2">
-      <widget class="QLineEdit" name="lineEdit_6">
+      <widget class="QLineEdit" name="cub_wl_edit">
        <property name="placeholderText">
         <string>0</string>
        </property>
       </widget>
      </item>
      <item row="0" column="2">
-      <widget class="QLabel" name="label_9">
+      <widget class="QLabel" name="wireless_lbl">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
@@ -284,7 +284,7 @@
     </property>
     <property name="font">
      <font>
-      <pointsize>12</pointsize>
+      <pointsize>11</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
@@ -377,55 +377,55 @@
      <rect>
       <x>10</x>
       <y>60</y>
-      <width>261</width>
+      <width>296</width>
       <height>80</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_2">
      <item row="2" column="1">
-      <widget class="QLineEdit" name="lineEdit_9">
+      <widget class="QLineEdit" name="w10_qty">
        <property name="placeholderText">
         <string>0</string>
        </property>
       </widget>
      </item>
      <item row="0" column="0">
-      <widget class="QLabel" name="label_13">
+      <widget class="QLabel" name="w3_lbl">
        <property name="text">
         <string>3-button keypad:</string>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QLineEdit" name="lineEdit_7">
+      <widget class="QLineEdit" name="w3_qty">
        <property name="placeholderText">
         <string>0</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QLineEdit" name="lineEdit_8">
+      <widget class="QLineEdit" name="w7_qty">
        <property name="placeholderText">
         <string>0</string>
        </property>
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QLabel" name="label_14">
+      <widget class="QLabel" name="w7_lbl">
        <property name="text">
         <string>7-button keypad:</string>
        </property>
       </widget>
      </item>
      <item row="2" column="0">
-      <widget class="QLabel" name="label_15">
+      <widget class="QLabel" name="w10_lbl">
        <property name="text">
         <string>10-button keypad:</string>
        </property>
       </widget>
      </item>
      <item row="1" column="2">
-      <widget class="QComboBox" name="comboBox">
+      <widget class="QComboBox" name="w7_plate">
        <item>
         <property name="text">
          <string>White</string>
@@ -454,7 +454,7 @@
       </widget>
      </item>
      <item row="0" column="2">
-      <widget class="QComboBox" name="comboBox_2">
+      <widget class="QComboBox" name="w3_plate">
        <item>
         <property name="text">
          <string>White</string>
@@ -483,7 +483,7 @@
       </widget>
      </item>
      <item row="2" column="2">
-      <widget class="QComboBox" name="comboBox_3">
+      <widget class="QComboBox" name="w10_plate">
        <item>
         <property name="text">
          <string>White</string>
@@ -524,49 +524,49 @@
     </property>
     <layout class="QGridLayout" name="gridLayout_3">
      <item row="2" column="1">
-      <widget class="QLineEdit" name="lineEdit_10">
+      <widget class="QLineEdit" name="wl10_qty">
        <property name="placeholderText">
         <string>0</string>
        </property>
       </widget>
      </item>
      <item row="0" column="0">
-      <widget class="QLabel" name="label_16">
+      <widget class="QLabel" name="wl3_lbl">
        <property name="text">
         <string>3-button keypad:</string>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QLineEdit" name="lineEdit_11">
+      <widget class="QLineEdit" name="wl3_qty">
        <property name="placeholderText">
         <string>0</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QLineEdit" name="lineEdit_12">
+      <widget class="QLineEdit" name="wl7_qty">
        <property name="placeholderText">
         <string>0</string>
        </property>
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QLabel" name="label_17">
+      <widget class="QLabel" name="wl7_lbl">
        <property name="text">
         <string>7-button keypad:</string>
        </property>
       </widget>
      </item>
      <item row="2" column="0">
-      <widget class="QLabel" name="label_18">
+      <widget class="QLabel" name="wl10_lbl">
        <property name="text">
         <string>10-button keypad:</string>
        </property>
       </widget>
      </item>
      <item row="1" column="2">
-      <widget class="QComboBox" name="comboBox_4">
+      <widget class="QComboBox" name="wl7_plate">
        <item>
         <property name="text">
          <string>White</string>
@@ -595,7 +595,7 @@
       </widget>
      </item>
      <item row="0" column="2">
-      <widget class="QComboBox" name="comboBox_5">
+      <widget class="QComboBox" name="wl3_plate">
        <item>
         <property name="text">
          <string>White</string>
@@ -624,7 +624,7 @@
       </widget>
      </item>
      <item row="2" column="2">
-      <widget class="QComboBox" name="comboBox_6">
+      <widget class="QComboBox" name="wl10_plate">
        <item>
         <property name="text">
          <string>White</string>
@@ -665,7 +665,7 @@
     </property>
     <layout class="QGridLayout" name="gridLayout_4">
      <item row="0" column="2">
-      <widget class="QComboBox" name="comboBox_7">
+      <widget class="QComboBox" name="wnf3_plate">
        <item>
         <property name="text">
          <string>White</string>
@@ -694,35 +694,35 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QLineEdit" name="lineEdit_13">
+      <widget class="QLineEdit" name="wnf7_qty">
        <property name="placeholderText">
         <string>0</string>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QLineEdit" name="lineEdit_15">
+      <widget class="QLineEdit" name="wnf3_qty">
        <property name="placeholderText">
         <string>0</string>
        </property>
       </widget>
      </item>
      <item row="0" column="0">
-      <widget class="QLabel" name="label_20">
+      <widget class="QLabel" name="wnf3_lbl">
        <property name="text">
         <string>7-button keypad:</string>
        </property>
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QLabel" name="label_21">
+      <widget class="QLabel" name="wnf7_lbl">
        <property name="text">
         <string>10-button keypad:</string>
        </property>
       </widget>
      </item>
      <item row="1" column="2">
-      <widget class="QComboBox" name="comboBox_9">
+      <widget class="QComboBox" name="wnf7_plate">
        <item>
         <property name="text">
          <string>White</string>
@@ -748,142 +748,6 @@
          <string>Brushed Stainless Steel</string>
         </property>
        </item>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-  </widget>
-  <widget class="QWizardPage" name="wizardPage2">
-   <widget class="QLabel" name="label_19">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>241</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>16</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>Miscallaenous Devices</string>
-    </property>
-   </widget>
-   <widget class="QWidget" name="gridLayoutWidget_5">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>60</y>
-      <width>161</width>
-      <height>129</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gridLayout_5">
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_25">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>RAMPI</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="label_26">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>TCM</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_24">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>RAK-Star</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_22">
-       <property name="font">
-        <font>
-         <pointsize>14</pointsize>
-         <underline>true</underline>
-        </font>
-       </property>
-       <property name="text">
-        <string>Device</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLabel" name="label_23">
-       <property name="font">
-        <font>
-         <pointsize>14</pointsize>
-         <underline>true</underline>
-        </font>
-       </property>
-       <property name="text">
-        <string>Quantity</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="label_27">
-       <property name="font">
-        <font>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Rx-Link</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="lineEdit_14">
-       <property name="placeholderText">
-        <string>0</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QLineEdit" name="lineEdit_16">
-       <property name="placeholderText">
-        <string>0</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="QLineEdit" name="lineEdit_17">
-       <property name="placeholderText">
-        <string>0</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QLineEdit" name="lineEdit_18">
-       <property name="placeholderText">
-        <string>0</string>
-       </property>
       </widget>
      </item>
     </layout>
